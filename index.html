@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="jquery.fullPage.min.js"></script>
+        <link rel="stylesheet" href="jquery.fullPage.css">
+        <link href="https://fonts.googleapis.com/css?family=Raleway|Oxigen|Open+Sans" rel="stylesheet">
+
+        <style>
+
+       body {
+  font-size: 18pt;
+}
+
+h1 {
+  font-size: 48pt;
+}
+
+h2 {
+  font-size: 36pt;
+}
+
+h3 {
+  font-size: 28pt;
+}
+
+pre {
+  border: 1px solid #000;
+  padding: 10px;
+  white-space: pre-wrap;
+}
+        path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
+        </style>
+    </head>
+    <body>
+
+        <div id="wrapper">
+            <div class="section">
+            <h2>Fertility Rate Declining In USA!</h2>
+      <h3>Is the female fertility rate in United States declining ? </br> Is it a global trend or specific to certain countries? </h3>
+      <p> This project will attempt to answer some of these questions. It explores the global fertility rates in female .The period chosen for the study is from the year 1960 to 2015 as per United Nations Statistic Division.The data set used in this project consists of data available for females between 15 to 49 years from 195 countries.</p>
+      <p>From this project ,we will try to determine the general trend of global fertility rates in women with respect to regions and countries. We will also explore the trend in USA and will try to find a reason for the trend.</p>
+                
+            </div>
+            <div class="section" >
+             <h2>About This Project</h2>
+      <h3>Hybrid Structure</h3>
+      <p> This project is created based on the interactive slideshow hybrid structure. Users can navigate through a series of slides, or scenes , in which they are able to explore the fertility rates of different Countries of the world by mouseover functionality.
+        </p>
+      <h3>Scenes</h3>
+      <p> This Project has been created using FullPage.js library to make it easy for scene to scene navigation, giving it a uniform flow. Scrolling has been made user-friendly, thanks to Fullpage.js.Each scene has a chart visualisation along with it's usage instructions which conveys a message. Each scene has been labeled which helps in knowing the topics covered by the visualisation and for the visual consistency of the project the fonts have been kept uniform throughout the scenes.
+      </p>
+      <h3>Annotations</h3>
+      <p> Annotation is represented by a tooltip which displays Country name and fertility rate information when the 
+      user hovers their mouse over a Country on the multiline graph. As the user moves their mouse away from that country, the annotation associated with that country disappears . 
+       Annotation also occurs in the form of a basic legend containing the Regions of the world.Legends can be selected or deselected in order to drill down accordingly.
+       </p>  
+      <h3>Parameters</h3>
+      <p> Parameters in this project include a color range for different regions and values of ferttility rates which changes according to countries selected in a perticular year. 
+      </br>
+      </br>
+      </p>
+      <h3>Triggers</h3>
+      <p>Scrolling down or up through the keyboard or mouse navigates through the scenes ,so they act as triggers for the event change in scenes. 
+      The mouseover on the charts act as a trigger to display the tooltip for the Country selected.Also filtering of data with the help of legends selection act as triggers as they change the parameter "Region"  which inturn causes event to change the view of the chart.</p>   
+                
+            </div>
+            <div class="section" >
+                <h4>USA Trend Of Fertility Rates.</h4>
+      <div id="myDiv"></div>
+      <h3>Instuctions</h3>
+      <h3>Please hover through each point to get to know the fertility rate in US in that particular year.</h3>
+      </br>
+      <h3>Details</h3>
+      <p> Wikipedia defines Total Fertility Rate(also called fertility rate) as the average number of children that would be born to a woman over her lifetime . </b> The overall fertility rate in united states reached a historic low 1.83 in year 2015 as per the chart.According to a recent article in New york Times,the decrease in female feltility rate in United States brings the overall fertility rate to below replacement level(Wikipedia defines Replacement Fertility as the total fertility rate at which women give birth to enough babies to sustain population levels).
+      </br>
+      </br>
+      </p>
+                         
+            </div>
+            <div class="section" >
+              <h4>Global fertility rate analysis.</h4>
+      
+      <div><svg id="myDiv2" width="800" height="500"></svg></div>
+      <h3>Instructions</h3>
+      <h3> Please select the region's fertility rates ,you wish to explore by using the legends provided as squared bullets.And then hover over each line for country specific details.</h3>
+      </br><h3>Details</h3>
+      <p>As per the chart visualisation and the data,the region with the highest fertility rate is Africa with highest 6.62 children per woman in Nigeria in 2015.Europe was having lowest fertility rate with approximately 0.82 children per women in Singapore in 2015.
+      </br>
+      </br>
+      
+      </br>   
+      </br>
+      
+                
+            </div>
+            <div class="section" >
+              <h2>Resources Used</h2>
+      <h3>This project has been made possible by utilizing the following resources:</h3>
+      <h4> FullPage.js: </h4>
+      <p> <a href=https://github.com/alvarotrigo/fullPage.js>FullPage.js</a></p>
+      <h4> Datasets used: </h4>
+      <p><a href=http://data.worldbank.org/indicator/SP.DYN.TFRT.IN>Dataset</a></p>
+      <h4> Codes used: </h4>
+      <p><a href=https://code.tutsplus.com/tutorials/building-a-multi-line-chart-using-d3js-part-2--cms-22973>Multiline graph</a></p>
+      
+      <h4> Tooltip: </h4>
+      <p> <a href="http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html"> Adding Tooltips to j3.js Graph </a></p>
+      
+            </div>
+            
+        </div>
+        
+        <script>
+            
+            // ***************************************************
+            // ************ Initialize fullpage.js ***************
+            // ***************************************************
+
+            $(document).ready(function() {
+                $('#wrapper').fullpage({
+                    sectionsColor: ['#ffffff', '#ffffff', '#f2f2f2', '#ffffff', '#f2f2f2'],
+                    navigation: true,
+                    navigationPosition: 'right',
+                    scrollingSpeed: 1000
+                });
+            });
+
+            // Set the dimensions of the canvas / graph
+var margin = {top: 30, right: 20, bottom: 30, left: 50},
+    width = 600 - margin.left - margin.right,
+    height = 270 - margin.top - margin.bottom;
+
+// Parse the date / time
+      
+var parseDate = d3.timeParse("%Y");
+var formatTime = d3.timeFormat("%Y");
+
+
+// Set the ranges
+var xScale = d3.scaleTime().range([0, width]);
+var yScale = d3.scaleLinear().range([height, 0]);
+
+// Define the axes
+var xAxis = d3.axisBottom(xScale)
+                    .ticks(5);
+
+var yAxis = d3.axisLeft(yScale)
+                    .ticks(5)
+
+// Define the line
+var valueline = d3.line()
+    .x(function(d) { return xScale(d.Year); })
+    .y(function(d) { return yScale(d.Fertility_Rate); });
+
+var div=d3.select("body")
+.append("div")
+.attr("class","tooltip")
+.style("opacity",0);
+
+    
+// Adds the svg canvas
+var svg = d3.select("#myDiv")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+// Get the data
+d3.csv("US_Fertility.csv", function(error, data) {
+    data.forEach(function(d) {
+        d.Year = parseDate(d.Year);
+        d.Fertility_Rate = +d.Fertility_Rate;
+    });
+
+    // Scale the range of the data
+    xScale.domain([d3.min(data, function(d) { return d.Year; }), d3.max(data, function(d) { return d.Year; })])
+    yScale.domain([0, d3.max(data, function(d) { return d.Fertility_Rate; }) + 1]);
+
+    // Add the valueline path.
+    svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(data));
+
+    // Add the scatterplot
+    svg.selectAll("dot")
+        .data(data)
+      .enter().append("circle")
+        .attr("r", 3.5)
+        .attr("cx", function(d) { return xScale(d.Year); })
+        .attr("cy", function(d) { return yScale(d.Fertility_Rate); })
+        .on("mouseover",function(d)
+            {
+                div.transition()
+                .duration(200)
+                .style("opacity",0.9);
+                div.html(formatTime(d.Year) + "<br/>" + d.Fertility_Rate)
+                .style("left" ,(d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY -28) + "px");
+            })
+        .on("mouseout", function(d)
+            {
+                div.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
+
+    // Add the X Axis
+    svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+    // Add the Y Axis
+    svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+});
+
+
+
+
+      // ***************************************************
+      // **************** GLOBAL UTILITIES *****************
+      // ***************************************************
+
+
+
+      // Line color
+      var color = d3.scaleOrdinal(d3.schemeCategory10);
+
+      // ***************************************************
+      // ********* FERTILITY RATE BY REGION GRAPH **********
+      // ***************************************************
+
+      // ******** General definitions ********* 
+      
+      // Div for tooltips
+      var div = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+      // SVG to be modified selection
+      var vis = d3.select("#myDiv2");
+
+      // Dimensions
+      var MARGINS = { top: 20, right: 210, bottom: 130, left: 50 },
+        MARGINS2 = { top: 410, right: 210, bottom: 50, left: 50 },
+        WIDTH = +vis.attr("width") - MARGINS.left - MARGINS.right,
+        HEIGHT = +vis.attr("height") - MARGINS.top - MARGINS.bottom,
+        HEIGHT2 = +vis.attr("height") - MARGINS2.top - MARGINS2.bottom;
+
+      // Scales
+      var xScale_new = d3.scaleTime().range([0, WIDTH]),
+        xScale2_new = d3.scaleTime().range([0, WIDTH]),
+        yScale_new = d3.scaleLinear().range([HEIGHT, 0]),
+        yScale2_new = d3.scaleLinear().range([HEIGHT2, 0]);
+
+      // Grid Lines X-axis function
+      function make_x_gridlines() {   
+          return d3.axisBottom(xScale_new)
+              .ticks(10)
+      }
+
+      // Grid Lines Y-axis function
+      function make_y_gridlines() {   
+          return d3.axisLeft(yScale_new)
+              .ticks(10)
+      }
+
+      // Axis
+      var xAxis_new = d3.axisBottom(xScale_new),
+        xAxis2_new = d3.axisBottom(xScale2_new),
+        yAxis_new = d3.axisLeft(yScale_new);
+
+      // Define brush call
+      var brush = d3.brushX()
+          .extent([[0, 0], [WIDTH, HEIGHT2]])
+          .on("brush end", brushed);
+
+      // Append class focus that will be used to draw the charts
+      var focus = vis.append("g")
+          .attr("class", "focus")
+          .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+      // Append class context that will be used to draw the charts in the context bar
+      var context = vis.append("g")
+          .attr("class", "context")
+          .attr("transform", "translate(" + MARGINS2.left + "," + MARGINS2.top + ")");
+
+      // Append class points that will be used to draw the points in the focus bar
+      var points = vis.append("g")
+          .attr("class", "points")
+          .attr("transform", "translate(" + MARGINS.left + "," + MARGINS.top + ")");
+
+      // Line definition for focus section
+      var lineGen = d3.line()
+        .x(function(d) { return xScale_new(d.Year); })
+        .y(function(d) { return yScale_new(d.Fertility_Rate); });
+
+      // Line definition for context section
+      var lineGen2 = d3.line()
+        .x(function(d) { return xScale2_new(d.Year); })
+        .y(function(d) { return yScale2_new(d.Fertility_Rate); });
+
+      // clipPath definition
+      vis.append("defs").append("clipPath")
+        .attr("id", "clip")
+        .append("rect")
+        .attr("width", WIDTH)
+        .attr("height", HEIGHT);
+
+      // ******** Multi-line graph creation *********
+
+      // Source of information
+      d3.csv("FRbyCountry.csv", function(data) {  
+
+        // Parse Year and convert Fertility Rate into number
+        data.forEach(function(d) {
+          d.Fertility_Rate = +d.Fertility_Rate;
+          d.Year = parseDate(d.Year);
+        });
+
+        // Nest data based on Country Name
+        var dataGroup = d3.nest()
+            .key(function(d) { return d.Country_Name; })
+            .entries(data);
+
+        // Nest data based on Region
+        var dataRegion = d3.nest()
+            .key(function(d) { return d.Region; })
+            .entries(data);
+
+        // Set domain for ranges dynamically based on data
+        xScale_new.domain([d3.min(data, function(d) { return d.Year; }), d3.max(data, function(d) { return d.Year; })])
+        yScale_new.domain([0, d3.max(data, function(d) { return d.Fertility_Rate; }) + 1]);
+        xScale2_new.domain(xScale.domain());
+        yScale2_new.domain(yScale.domain());
+
+        // For each Country Name draw a line graph and points
+        dataGroup.forEach(function(d, i) {
+
+          // Add the dots and tooltips when hovering
+          points.selectAll("dot")
+            .data(d.values)
+            .enter().append("circle")
+            .attr("r", 2.5)
+            .attr("cx", function(v) { return xScale_new(v.Year); })
+            .attr("cy", function(v) { return yScale_new(v.Fertility_Rate); })
+            .attr("class", "line")
+            // Set ID with region to each line to easily filter
+            .attr('id', function(v) { return 'point_'+v.Region.replace(/\s+/g, ''); })
+            .attr('clip-path', 'url(#clip)')
+            .on("mouseover", function(v) {
+              div.transition()
+                .duration(200)
+                .style("opacity", .9);
+              div.html("<b style='font-size:12px; color:#333333'>" + v.Country_Name + "</b><br/><b>Year: </b>" + formatTime(v.Year) + "<br/><b>FR: </b>" + v.Fertility_Rate)
+                .style("left", (d3.event.pageX) + "px")
+                .style("top", (d3.event.pageY - 28) + "px");
+            })
+            .on("mouseout", function(v) {
+              div.transition()
+                .duration(500)
+                .style("opacity", 0);
+            });
+
+          // Draw the line graphs on focus section
+          focus.append("path")
+            .datum(d.values)
+            .attr("class", "line")
+              .attr('stroke-width', 1)
+              .attr('fill', 'none')
+              // Set ID with region to each line to easily filter
+              .attr('id', 'line_'+d.values[0].Region.replace(/\s+/g, ''))
+              .attr('clip-path', 'url(#clip)')
+            .attr("d", lineGen(d.values));
+
+          // Draw the line graphs on context section
+          context.append("path")
+            .datum(d.values)
+            .attr("class", "line")
+            .attr('stroke-width', 1)
+              .attr('fill', 'none')
+              // Set ID with region to each line to easily filter
+              .attr('id', 'line_'+d.values[0].Region.replace(/\s+/g, ''))
+              .attr('clip-path', 'url(#clip)')
+            .attr("d", lineGen2(d.values));
+        });
+
+        // For each Region add an interactive legend and specific color
+        dataRegion.forEach(function(d, i) {
+
+          // Text on legend
+          vis.append("text")
+            .attr("class", "legend")
+            .attr("x", WIDTH + MARGINS.left + 30)
+            .attr("y", HEIGHT/2 + i * 20)
+            .style("fill", "black")
+            .text(d.key)
+            // Add ID to legend text for easily filtering
+            .attr('id', 'legendText_'+d.values[0].Region.replace(/\s+/g, ''))
+            .on("mouseover", function(v) {
+              var shadow = "2px 2px 2px #808080";
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("stroke-width", 1).style("stroke", "black");
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("text-shadow", shadow);
+            })
+            .on("mouseout", function(v) {
+              var shadow = "2px 2px 2px #aaa";
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("stroke-width", 0).style("stroke", "none");
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("text-shadow", shadow);
+            })
+            .on('click', function() {
+              var active = d.active ? false : true;
+              var opacity = active ? 0 : 1;
+              var legendOpacity = active ? 0.3 : 1;
+              var shadow = active ? "none" : "2px 2px 2px #aaa";
+              var radius = active ? 0 : 2.5;
+              d3.selectAll("#line_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", opacity);
+              d3.selectAll("#point_"+d.values[0].Region.replace(/\s+/g, '')).attr("r", radius);
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", legendOpacity);
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", legendOpacity).style("text-shadow", shadow);
+              d.active = active;
+            });
+
+          // Colored rectangle on legend
+          vis.append("rect")
+            .attr("x", WIDTH + MARGINS.left + 15)
+            .attr("y", HEIGHT/2 + i * 20 - 10)
+            .attr('fill', color(i))
+            .attr("width", 10)
+            .attr("height", 10)
+            // Add ID to legend color for easily filtering
+            .attr('id', 'legendColor_'+d.values[0].Region.replace(/\s+/g, ''))
+            .on("mouseover", function(v) {
+              var shadow = "2px 2px 2px #808080";
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("stroke-width", 1).style("stroke", "black");
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("text-shadow", shadow);
+            })
+            .on("mouseout", function(v) {
+              var shadow = "2px 2px 2px #aaa";
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("stroke-width", 0).style("stroke", "none");
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("text-shadow", shadow);
+            })
+            .on('click', function() {
+              var active = d.active ? false : true;
+              var opacity = active ? 0 : 1;
+              var legendOpacity = active ? 0.3 : 1;
+              var radius = active ? 0 : 2.5;
+              d3.selectAll("#line_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", opacity);
+              d3.selectAll("#point_"+d.values[0].Region.replace(/\s+/g, '')).attr("r", radius);
+              d3.selectAll("#legendColor_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", legendOpacity);
+              d3.selectAll("#legendText_"+d.values[0].Region.replace(/\s+/g, '')).style("opacity", legendOpacity);
+              d.active = active;
+            });
+
+          // Set color by region
+          focus.selectAll("#line_"+d.values[0].Region.replace(/\s+/g, '')).attr('stroke', color(i));
+          context.selectAll("#line_"+d.values[0].Region.replace(/\s+/g, '')).attr('stroke', color(i));
+          points.selectAll("#point_"+d.values[0].Region.replace(/\s+/g, '')).attr('fill', color(i));
+        });
+
+        // Set X axis to focus section
+        focus.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + HEIGHT + ")")
+          .call(xAxis_new);
+
+        // Set Y axis to focus section
+        focus.append("g")
+          .attr("class", "axis axis--y")
+          .call(yAxis_new);
+
+        // Set X axis to context section
+        context.append("g")
+          .attr("class", "axis axis--x")
+          .attr("transform", "translate(0," + HEIGHT2 + ")")
+          .call(xAxis2_new);
+
+        // Set brush call for context bar
+        context.append("g")
+          .attr("class", "brush")
+          .call(brush)
+          .call(brush.move, xScale_new.range());
+
+        // X Axis label
+        context.append("text")
+          .attr("transform", "translate(" + (WIDTH/2) + "," + (HEIGHT2 + 40) + ")")
+          .style("text-anchor", "middle")
+          .text("Year");
+
+        // Y Axis label
+        vis.append("text")
+          .attr("transform", "rotate(-90), translate(" + (-1 * HEIGHT / 2 ) + ", 20)")
+          .style("text-anchor", "middle")
+          .text("Fertility Rate (births per woman)"); 
+
+        // Add the grid lines to X-Axis
+        focus.append("g")     
+          .attr("class", "grid")
+          .attr("transform", "translate(0," + HEIGHT + ")")
+          .call(make_x_gridlines()
+            .tickSize(-HEIGHT)
+            .tickFormat("")
+          )
+
+        // Add the grid lines to Y-Axis
+        focus.append("g")     
+          .attr("class", "grid")
+          .call(make_y_gridlines()
+            .tickSize(-WIDTH)
+            .tickFormat("")
+          )   
+      });
+
+      // Refresh ranges and line graphs on focus section for brushing action
+      function brushed() {
+        var s = d3.event.selection || xScale2_new.range();
+        xScale_new.domain(s.map(xScale2_new.invert, xScale2_new));
+        focus.selectAll(".line").attr("d", lineGen);
+        points.selectAll(".line")
+          .attr("cx", function(v) { return xScale_new(v.Year); })
+          .attr("cy", function(v) { return yScale_new(v.Fertility_Rate); })
+        focus.select(".grid").call(make_x_gridlines()
+            .tickSize(-HEIGHT)
+            .tickFormat("")
+          );
+        focus.select(".axis--x").call(xAxis_new);
+      }
+            
+        </script>
+    </body>
+</html>
