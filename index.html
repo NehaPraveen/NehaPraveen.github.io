@@ -1,9 +1,14 @@
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        
+        <meta charset="utf-8">
+        <script src="https://d3js.org/d3.v3.min.js"></script>
         <script src="https://d3js.org/d3.v4.min.js"></script>
+        <script src="https://d3js.org/d3.geo.projection.v0.min.js"></script>
+        <script src="https://d3js.org/queue.v1.min.js"></script>
+        <script src="https://d3js.org/topojson.v1.min.js"></script>
+        <script src="https://d3js.org/d3-array.v1.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="jquery.fullPage.min.js"></script>
         <link rel="stylesheet" href="jquery.fullPage.css">
@@ -11,58 +16,106 @@
 
         <style>
 
-       body {
-  font-size: 18pt;
-}
+                 body {
+            font-size: 18pt;
+          }
 
-h1 {
-  font-size: 48pt;
-}
+          h1 {
+            font-size: 48pt;
+          }
 
-h2 {
-  font-size: 36pt;
-}
+          h2 {
+            font-size: 36pt;
+          }
 
-h3 {
-  font-size: 28pt;
-}
-
-pre {
-  border: 1px solid #000;
-  padding: 10px;
-  white-space: pre-wrap;
-}
-        path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-}
+          h3 {
+            font-size: 28pt;
+          }
 
 
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-div.tooltip {   
-  position: absolute;           
-  text-align: center;           
-  width: 60px;                  
-  height: 28px;                 
-  padding: 2px;             
-  font: 12px sans-serif;        
-  background: lightsteelblue;   
-  border: 0px;      
-  border-radius: 8px;           
-  pointer-events: none;         
-}
+                  path { 
+              stroke: steelblue;
+              stroke-width: 2;
+              fill: none;
+          }
+
+
+          .axis path,
+          .axis line {
+              fill: none;
+              stroke: grey;
+              stroke-width: 1;
+              shape-rendering: crispEdges;
+          }
+          div.tooltip {   
+            position: absolute;           
+            text-align: center;           
+            width: 60px;                  
+            height: 28px;                 
+            padding: 2px;             
+            font: 12px sans-serif;        
+            background: lightsteelblue;   
+            border: 0px;      
+            border-radius: 8px;           
+            pointer-events: none;         
+          }
+
+              
+            #wrapper {
+                width: 960px;
+                margin: -30px auto 0;
+            }
+            #map {
+                width: 960px;
+                height: 580px;
+                position: relative;
+            }
+            .stroke {
+              fill: none;
+              stroke: #888;
+              stroke-width: 2px;
+            }
+            
+            .fill {
+              fill: #fff;
+            }
+            
+            .graticule {
+              fill: none;
+              stroke: #777;
+              stroke-width: .5px;
+              stroke-opacity: .5;
+            }
+            
+            .land {
+              fill: #222;
+            }
+            
+            .boundary {
+              fill: none;
+              stroke: #fff;
+              stroke-width: .5px;
+            }
+            .country {
+                
+                stroke: white;
+            }
+            #play, #clock {
+              position: absolute;
+              top: 15px;
+            }
+            #play {
+              left: 15px;
+            }
+            #clock {
+              left: 65px;
+            }
+
         </style>
     </head>
     <body>
 
-        <div id="wrapper">
+        <div id="fullpage">
             <div class="section">
             <h2>Fertility Rate Declining In USA!</h2>
       <h3>Is the female fertility rate in United States declining ? </br> Is it a global trend or specific to certain countries? </h3>
@@ -80,17 +133,17 @@ div.tooltip {
       </p>
       <h3>Annotations</h3>
       <p> Annotation is represented by a tooltip which displays Country name and fertility rate information when the 
-      user hovers their mouse over a Country on the multiline graph. As the user moves their mouse away from that country, the annotation associated with that country disappears . 
-       Annotation also occurs in the form of a basic legend containing the Regions of the world.Legends can be selected or deselected in order to drill down accordingly.
+      user hovers their mouse over a Country on choropleth graph. As the user moves their mouse away from that country, the annotation associated with that country disappears . 
+       Annotation also occurs in the form of a basic tooltip showing the fertility rates of the world.
        </p>  
       <h3>Parameters</h3>
-      <p> Parameters in this project include a color range for different regions and values of ferttility rates which changes according to countries selected in a perticular year. 
+      <p> Parameters in this project include a color range for different fertility rates and values of ferttility rates which changes according to countries selected in a perticular year.Also Years in second chart work as parameters as when they change the colors of the map change according to the corresponding year's fertility rate.
       </br>
       </br>
       </p>
       <h3>Triggers</h3>
       <p>Scrolling down or up through the keyboard or mouse navigates through the scenes ,so they act as triggers for the event change in scenes. 
-      The mouseover on the charts act as a trigger to display the tooltip for the Country selected.Also filtering of data with the help of legends selection act as triggers as they change the parameter "Region"  which inturn causes event to change the view of the chart.</p>   
+      The mouseover on the charts act as a trigger to display the tooltip for the Country selected.Also the play button changes the year which inturn causes event to change the color of the chart.</p>   
                 
             </div>
             <div class="section" >
@@ -107,11 +160,15 @@ div.tooltip {
                          
             </div>
             <div class="section" >
-              <h4>Global fertility rate analysis.</h4>
-      
-      <div><svg id="myDiv2" width="800" height="500"></svg></div>
+              <h2>Global fertility rate analysis.</h2>
+      <div id="wrapper">
+      <div id="map"></div>
+      <div id="legend"></div>
+      <button id="play">play</button>
+      <span id="clock">year</span>
+      </div>
       <h3>Instructions</h3>
-      <h3> Please select the region's fertility rates ,you wish to explore by using the legends provided as squared bullets.And then hover over each line for country specific details.</h3>
+      <h3> Click on play button to change the year and click on stop to analyse that years global rates ,by hovering over each Country.</h3>
       </br><h3>Details</h3>
       <p>As per the chart visualisation and the data,the region with the highest fertility rate is Africa with highest 6.62 children per woman in Nigeria in 2015.Europe was having lowest fertility rate with approximately 0.82 children per women in Singapore in 2015.
       </br>
@@ -130,10 +187,10 @@ div.tooltip {
       <h4> Datasets used: </h4>
       <p><a href=http://data.worldbank.org/indicator/SP.DYN.TFRT.IN>Dataset</a></p>
       <h4> Codes used: </h4>
-      <p><a href=https://code.tutsplus.com/tutorials/building-a-multi-line-chart-using-d3js-part-2--cms-22973>Multiline graph</a></p>
+      <p><a href=http://bl.ocks.org/rgdonohue/9280446>Animated Map</a></p>
       
       <h4> Tooltip: </h4>
-      <p> <a href="http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html"> Adding Tooltips to j3.js Graph </a></p>
+      <p> <a href="http://www.d3noob.org/2013/01/adding-tooltips-to-d3js-graph.html"> Adding Tooltips to d3.js Graph </a></p>
       
             </div>
             
@@ -141,12 +198,10 @@ div.tooltip {
         
         <script>
             
-            // ***************************************************
-            // ************ Initialize fullpage.js ***************
-            // ***************************************************
+
 
             $(document).ready(function() {
-                $('#wrapper').fullpage({
+                $('#fullpage').fullpage({
                     sectionsColor: ['#ffffff', '#ffffff', '#f2f2f2', '#ffffff', '#f2f2f2'],
                     navigation: true,
                     navigationPosition: 'right',
@@ -154,29 +209,28 @@ div.tooltip {
                 });
             });
 
-            // Set the dimensions of the canvas / graph
+
 var margin = {top: 30, right: 20, bottom: 30, left: 50},
     width = 600 - margin.left - margin.right,
     height = 270 - margin.top - margin.bottom;
 
-// Parse the date / time
+
       
 var parseDate = d3.timeParse("%Y");
 var formatTime = d3.timeFormat("%Y");
 
 
-// Set the ranges
+
 var xScale = d3.scaleTime().range([0, width]);
 var yScale = d3.scaleLinear().range([height, 0]);
 
-// Define the axes
 var xAxis = d3.axisBottom(xScale)
                     .ticks(5);
 
 var yAxis = d3.axisLeft(yScale)
                     .ticks(5)
 
-// Define the line
+
 var valueline = d3.line()
     .x(function(d) { return xScale(d.Year); })
     .y(function(d) { return yScale(d.Fertility_Rate); });
@@ -235,13 +289,13 @@ d3.csv("US_Fertility.csv", function(error, data) {
                 .style("opacity", 0);
             });
 
-    // Add the X Axis
+    
     svg.append("g")
         .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(xAxis);
 
-    // Add the Y Axis
+   
     svg.append("g")
         .attr("class", "y axis")
         .call(yAxis);
@@ -250,8 +304,241 @@ d3.csv("US_Fertility.csv", function(error, data) {
 
 
 
+//Choropleth Map of World Data:-
 
+
+
+var projection, path, graticule, svg1, currentAttribute = 0, playing = false;
+var attributeArray = d3.range(1960,2016,10);
+var legend_labels = ["< 1", "1+", "2+", "3+", "4+", "5+", "6+", "7+", "8+", "9+"];
+var ext_domain = [0,9];
+
+var color = d3.scale.threshold() 
+    .domain([0,1,2,3,4,5,6,7,8,9])  
+    .range(["#006837", "#1a9850", "#66bd63", "#a6d96a", "#d9ef8b", "#ffffbf", "#fee08b", "#fdae61", "#f46d43", "#d73027", "#a50026"]);
+
+      
+      var div1 = d3.select("body").append("div")
+        .attr("class", "tooltip")
+        .style("opacity", 0);
+
+        init();
+
+        function init() {
+
+          setMap();
+          addLegends();
+          animateMap();
+
+        }
+
+
+        function addLegends(){
+var legend = svg1.selectAll("g")
+ .data(ext_domain)
+ .enter().append("g")
+ .attr("class", "legend")
+ //.attr("transform","translate(10,1)");
+ 
+var ls_w = 20, ls_h = 20;
+ 
+legend.selectAll("rect")
+.data(legend_labels).enter()
+.append("rect")
+ .attr("x", 20)
+ .attr("y", function(d, i){ return height- (i*ls_h) - 2*ls_h;})
+ .attr("width", ls_w)
+ .attr("height", ls_h)
+ .style("fill", function(d, i) { return color(i); })
+ .style("opacity", 0.8);
+ 
+legend.selectAll("text")
+.data(legend_labels).enter()
+.append("text")
+ .attr("x", 50)
+ .attr("y", function(d, i){ return height - (i*ls_h) - ls_h - 4;})
+ .text(function(d, i){ return legend_labels[i]; });
+ 
+
+};
+
+function setMap() {
+
+  width = 960, height = 580;  // map width and height, matches 
+
+  projection = d3.geo.eckert5()   
+    .translate([width / 2, height / 2])
+    .precision(.1);
+
+  path = d3.geo.path() 
+      .projection(projection);  
+
+  graticule = d3.geo.graticule(); 
+
+  svg1 = d3.select("#map").append("svg")   
+      .attr("width", width)
+      .attr("height", height);
+
+
+  svg1.append("defs").append("path")   
+      .datum({type: "Sphere"})
+      .attr("id", "sphere")
+      .attr("d", path);
+
+  svg1.append("use")   
+      .attr("class", "stroke")
+      .attr("xlink:href", "#sphere");
+
+  svg1.append("path")    
+      .datum(graticule)
+      .attr("class", "graticule")
+      .attr("d", path);  
+
+
+  loadData();  
+
+}
+function loadData() {
+
+  queue()   
+    .defer(d3.json, "world.json")  
+    .defer(d3.csv, "CountryWiseFR.csv")  
+    .await(processData);   
+                           
+}
+function processData(error,world,countryData) {
+
+
+  var countries = world.objects.countries.geometries;  // store the path in variable for ease
+  for (var i in countryData) {    // for each geometry object
+    for (var j in countries) {  // for each row in the CSV
+      if(countries[j].properties.id == countryData[i].id) {   // if they match
+        for(key in attributeArray)
+                {
+                 var attr= attributeArray[key];
+                countries[j].properties[attr] = countryData[i].fertility_Rate;
+                };
+                break;
+        };
+          
+      };
+     
+    };
+
+    for(var k in countries)
+    {
+      console.log(countries[k].properties)
+    }
+  
+  d3.select('#clock').html(attributeArray[currentAttribute]);  
+  drawMap(world);  
+}
+
+function drawMap(world) {
+
+  console.log("Inside drawMap function")
+
+    svg1.selectAll(".country")   
+      .data(topojson.feature(world, world.objects.countries).features)  
+      .enter().append("path") 
+      .attr("class", "country") 
+      .attr("id", function(d) { return "code_" + d.properties.id; }, true)  
+      .attr("d", path)
+      .style("opacity", 0.8)
+     .on("mouseover", function(d) {
+     d3.select(this).transition().duration(300).style("opacity", 1);
+     div1.transition().duration(300)
+     .style("opacity", 1)
+     .text(d.properties.admin + " : " + d.properties[attributeArray[currentAttribute]]) 
+     .style("left", (d3.event.pageX) + "px")
+     .style("top", (d3.event.pageY -30) + "px");
+     })
+     .on("mouseout", function() {
+     d3.select(this)
+     .transition().duration(300)
+     .style("opacity", 0.8);
+     div1.transition().duration(300)
+     .style("opacity", 0);
+     });
+
+
+    
+
+    d3.selectAll('.country')  // select all the countries
+    .attr('fill', function(d) {
+        return color(d.properties[attributeArray[currentAttribute]]);  // give 
+    });
+}
+
+function sequenceMap() {
+    
+    console.log("hello in sequence Map");
+    console.log(attributeArray[currentAttribute]);
+    var all_coutries=d3.selectAll('.country');
+    
+
+    all_coutries.style("opacity", 0.8)
+     .on("mouseover", function(d) {
+     d3.select(this).transition().duration(300).style("opacity", 1);
+     div1.transition().duration(300)
+     .style("opacity", 1)
+     .text(d.properties.admin + " : " + d.properties[attributeArray[currentAttribute]]) 
+     .style("left", (d3.event.pageX) + "px")
+     .style("top", (d3.event.pageY -30) + "px");
+     })
+     .on("mouseout", function() {
+     d3.select(this)
+     .transition().duration(300)
+     .style("opacity", 0.8);
+     div1.transition().duration(300)
+     .style("opacity", 0);
+     });
+
+
+    all_coutries.transition()  
+      .duration(750)  
+      .attr('fill', function(d) {
+        return color(d.properties[attributeArray[currentAttribute]]);  
+      })
+
+}
+
+
+
+function animateMap() {
+
+  var timer;  
+  d3.select('#play')
+    .attr("transform","translate(10,1)") 
+    .on('click', function() {  
+      if(playing == false) {  
+        timer = setInterval(function(){  
+          if(currentAttribute < attributeArray.length-1) {  
+              currentAttribute +=1;  
+          } else {
+              currentAttribute = 0;  
+          }
+          sequenceMap();  
+          d3.select('#clock').html(attributeArray[currentAttribute]);  
+        }, 2000);
+      
+        d3.select(this).html('stop');  
+        playing = true;   
+      } else {    
+        clearInterval(timer);   
+        d3.select(this).html('play');   
+        playing = false;   
+      }
+  });
+
+
+}
+
+      
+      
+      
             
         </script>
     </body>
 </html>
+
